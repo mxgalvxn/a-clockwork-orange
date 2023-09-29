@@ -1,0 +1,116 @@
+int n = 300;
+float c = 8.5;
+float concentracion = random(120, 250);
+float sep = 0.63;
+int stateEm = int(random(1,7)); 
+int circle = 3;
+float red = 0;
+float green = 0;
+float blue = 0;
+float radius;
+
+void setup() {
+  size(1000, 1000);
+  background(concentracion / 255, concentracion / 255, concentracion / 255);
+  stroke(0);
+  strokeWeight(.5);
+  println(stateEm);
+  println(concentracion);  
+}
+
+void draw(){
+  getColor(stateEm);
+  paint();
+
+}
+
+void paint() {
+    println(red);
+   noFill();
+  stroke(255);
+    if (circle < n) {
+      dot(circle, concentracion, stateEm);
+      circle++;
+    }
+
+}
+
+void getColor(int stateEm){
+    if (stateEm == 1) {
+    red = 200.0;
+    green = 0.0;
+  } else if (stateEm == 2) {
+    red = 200.0;
+    blue = 0.0;
+  }  else if (stateEm == 3) {
+    blue = 180.0;
+    green = 0.0;
+     }  else if (stateEm == 4) {
+    blue = 180.0;
+    red = 0.0;
+  } else if (stateEm == 5) {
+    green = 180.0;
+    red = 0.0;
+  } else if (stateEm == 6) {
+    green = 180.0;
+    blue = 0.0;
+  }
+
+}
+
+void dot(int i, float concentracion, int stateEm) {
+  translate(width / 2, height / 2);
+  float a = i * 2 * radians(concentracion);
+  float norm = concentracion * sep;
+  float r = concentracion / norm * c * sqrt(i);
+  float x = concentracion / norm * r * cos(a);
+  float y = concentracion / norm * r * sin(a);  
+  
+  if (stateEm == 1) {
+    red += 1;
+    if (red >= 255) {
+      green += 1;
+    }
+  } else if (stateEm == 2) {
+    red += 1;
+    if (red >= 255) {
+      blue += 1;
+    }
+  }else if (stateEm == 3) {
+    green += 1;
+    if (green >= 255) {
+      blue += 1.5;
+    }
+  } else if (stateEm == 4) {
+    blue += 1;
+    if (blue >= 255) {
+      red += 2;
+    }
+  } else if (stateEm == 5) {
+    green += 1;
+    if (green >= 255) {
+      red += 1.5;
+    }
+   } else if (stateEm == 6) {
+    green += 1;
+    if (green >= 255) {
+      blue += 1.5;
+    }
+  }
+
+  fill(red, green, blue);
+  int tam = 15;
+  int tamy = 25;
+  noStroke();
+    radius = 11 + log(i * 4) * 3;
+    ellipse(x, y, radius, radius);
+  //if (stateEm == 1) {
+
+  //} else if (stateEm == 2) {
+  //    rotate(i / 500.0);
+  //    triangle(x, y, x + tam, y + tamy, x - tam, y + tamy);
+  //} else if (stateEm == 3) {
+  //    rotate(i / 300.0);
+  //    rectMode(CORNERS);
+  //    rect(x + 5, y + 5, x + tamy, y + tamy);
+  }
